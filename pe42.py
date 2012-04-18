@@ -1,27 +1,15 @@
-import fileinput
+from fileinput import input
 
-words = fileinput.input( 'input/pe42.txt' )[ 0 ].split( ',' )
-n = len( words )
-upper = 0
-for i in xrange( n ):
-    words[ i ] = words[ i ][ 1:-1 ]
-    upper = max( upper, len( words[ i ] ) )
-upper *= 26
-upper += 1
+words = input( 'input/pe42.txt' )[ 0 ].split( ',' )
+words = [ word[ 1:-1 ] for word in words ] #remove quotes
 
-tri = set()
-for i in xrange( 1, upper ):
-    tri.add( ( i * ( i + 1 ) ) / 2 )
+#Upper bound for triangle numbers is 26 times the maximum length of any word
+upper = max( [ len( word ) for word in words ] ) * 26 + 1
 
-def strOrd( s ):
-    return sum( [ ord( ch ) - 64 for ch in s ] )
+#Triangles will contain all the triangle numbers from first to upper-th
+triangles = set( [ x * ( x + 1 ) / 2 for x in xrange( 1, upper ) ] )
 
-def isTri( s ):
-    x = strOrd( s )
-    return x in tri
+#String ord (sum of all character's ords)
+sord = lambda s: sum( [ ord( ch ) - 64 for ch in s ] )
 
-found = 0
-for i in xrange( n ):
-    if isTri( words[ i ] ):
-        found += 1
-print found
+print sum( [ sord( word ) in triangles for word in words ] )
