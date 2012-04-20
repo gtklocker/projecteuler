@@ -1,7 +1,4 @@
 #include <cstdio>
-#include <cstdlib>
-
-using namespace std;
 
 int rev( int n ) {
     int t = 0;
