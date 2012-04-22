@@ -13,7 +13,7 @@ def nearest( n ):
     return i
 
 def binary( n ):
-    """Return the binary intepretation of a decimal number n."""
+    """Return the binary representation of a decimal number n."""
     ret = str()
     for i in range( nearest( n ), -1, -1 ):
         if n >= 2 ** i:
@@ -33,7 +33,8 @@ def palindrome( n ):
 
 def main():
     """Solution for Problem 36."""
-    print sum( [ i for i in range( 1, 1000000 ) if palindrome( i ) and palindrome( binary( i ) ) ] )
+    print sum( [ i for i in range( 1, 1000000 )
+        if palindrome( i ) and palindrome( binary( i ) ) ] )
 
 if __name__ == '__main__':
     main()
