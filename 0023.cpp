@@ -4,7 +4,7 @@
 
 using namespace std;
 
-bool perfect( int n ) {
+bool abundant( int n ) {
     set< int > div;
     for ( int i = 1; i < n; ++i ) {
         if ( n % i == 0 ) {
@@ -24,7 +24,7 @@ int main() {
     const int upper = 28123;
     set< int > ab;
     for ( int i = 1; i <= upper; ++i ) {
-        if ( perfect( i ) ) {
+        if ( abundant( i ) ) {
             ab.insert( i );
         }
     }
