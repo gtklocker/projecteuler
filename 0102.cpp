@@ -42,14 +42,14 @@ int main() {
     int ans = 0;
     FILE *fin = fopen( "triangles.txt", "r" );
     for ( int i = 0; i < 1000; ++i ) {
-        point tri[ 3 ];
-        for ( int p = 0; p < 3; ++p ) {
+        point p[ 3 ];
+        for ( int j = 0; j < 3; ++j ) {
             int x, y;
             fscanf( fin, "%d,%d,", &x, &y );
-            tri[ p ] = makePoint( x, y );
+            p[ j ] = makePoint( x, y );
         }
 
-        triangle t = makeTriangle( tri[ 0 ], tri[ 1 ], tri[ 2 ] );
+        triangle t = makeTriangle( p[ 0 ], p[ 1 ], p[ 2 ] );
         ans += inTriangle( t, makePoint( 0, 0 ) );
     }
     printf( "%d\n", ans );
