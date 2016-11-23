@@ -1,32 +1,21 @@
-def solve(min_l, n):
-    dp = [[0] * n for i in range(n + 1)]
-    for i in range(n - 1, -1, -1):
-        for l in range(n, min_l - 1, -1):
-            if i + l <= n:
-                dp[l][i] += 1
+import itertools
 
-                for l1 in range(min_l, n + 1):
-                    for j in range(i + l + 1, n):
-                        dp[l][i] += dp[l1][j]
+def solve(m, n):
+    dp = [[0] * (n + 1) for i in range(2)]
+    dp[0][0] = 1
 
-    return sum([sum(dp[i]) for i in range(n + 1)]) + 1
+    for i in range(1, n + 1):
+        if i - 1 >= 0:
+            dp[0][i] = dp[0][i - 1] + dp[1][i - 1]
+            dp[1][i] = dp[1][i - 1]
+        if i - m >= 0:
+            dp[1][i] += dp[0][i - m]
+
+    return dp[0][n] + dp[1][n]
 
 m = 50
-
-over = 175
-needle = 10**6
-start, end = m, over
-while True:
-    middle = (start + end) // 2
-
-    if start == end:
-        print(start)
+for n in itertools.count(start=m):
+    sol = solve(m, n)
+    if sol > 10**6:
+        print(n)
         break
-
-    sol = solve(m, middle)
-    if sol > needle:
-        if middle >= start:
-            end = middle
-    elif sol < needle:
-        if middle + 1 <= end:
-            start = middle + 1

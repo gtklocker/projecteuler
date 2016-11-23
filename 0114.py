@@ -1,15 +1,15 @@
-def solve(n, min_l):
-    dp = [[0] * n for i in range(n + 1)]
-    for i in range(n - 1, -1, -1):
-        for l in range(n, min_l - 1, -1):
-            if i + l <= n:
-                dp[l][i] += 1
+def solve(n, m):
+    dp = [[0] * (n + 1) for i in range(2)]
+    dp[0][0] = 1
 
-                for l1 in range(min_l, n + 1):
-                    for j in range(i + l + 1, n):
-                        dp[l][i] += dp[l1][j]
+    for i in range(1, n + 1):
+        if i - 1 >= 0:
+            dp[0][i] = dp[0][i - 1] + dp[1][i - 1]
+            dp[1][i] = dp[1][i - 1]
+        if i - m >= 0:
+            dp[1][i] += dp[0][i - m]
 
-    return sum([sum(dp[i]) for i in range(n + 1)]) + 1
+    return dp[0][n] + dp[1][n]
 
 n = 50
 l = 3
